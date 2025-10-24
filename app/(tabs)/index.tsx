@@ -1,4 +1,5 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
+import Header from "@/components/Header";
 import useTheme from "@/hooks/useTheme";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect } from "react";
@@ -20,6 +21,7 @@ export default function Index() {
     <LinearGradient colors={colors.gradients.background} style={homeStyles.container}>
          <StatusBar barStyle={colors.statusBarStyle}/>
          <SafeAreaView style={homeStyles.safeArea}>
+            <Header />
             <View
             style={{
                 flex: 1,
