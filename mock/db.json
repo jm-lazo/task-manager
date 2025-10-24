@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "text": "Buy groceries",
+      "completed": false,
+      "priority": "High"
+    },
+    {
+      "id": 2,
+      "text": "Finish React Native challenge",
+      "completed": true,
+      "priority": "Medium"
+    },
+    {
+      "id": 3,
+      "text": "Call the plumber",
+      "completed": false,
+      "priority": "Low"
+    },
+    {
+      "id": 4,
+      "text": "Read a tech article",
+      "completed": true,
+      "priority": "Low"
+    }
+  ]
+}
