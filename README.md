@@ -10,41 +10,46 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Start full fake REST API (root folder)
+
+   ```bash
+   npm run start:api
+   ```
+
+This will raise a fake api at http://localhost:4000/
+
+3. Start the app
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+   This will open Metro Bundler.
+   From there you can:
+   -Press i to open in iOS Simulator
+   -Press a to open in Android Emulator
+   -Scan the QR code with the Expo Go app on your physical device
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📦 Dependencies
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+| Tipo | Paquete                                       |  Versión   | Descripción                  |
+| :--: | --------------------------------------------- | :--------: | ---------------------------- |
+|  ⚛️  | **react-native**                              |  `0.81.5`  | Core del proyecto            |
+|  🚀  | **expo**                                      | `~54.0.20` | Framework base               |
+|  🧠  | **zustand**                                   |  `^5.0.8`  | Estado global + persistencia |
+|  💾  | **@react-native-async-storage/async-storage** |  `^2.2.0`  | Almacenamiento local         |
+|  🎨  | **expo-linear-gradient**                      |  `15.0.7`  | Gradientes para UI           |
+|  🧩  | **@expo/vector-icons**                        |  `15.0.3`  | Íconos del sistema           |
 
-## Get a fresh project
+## Important
 
-When you're ready, run:
+The API_URL configuration handles the difference between how Android and iOS emulators access the local development server. (/services/api.ts)
 
-```bash
-npm run reset-project
-```
+-On iOS (Simulator):
+localhost refers to your development machine, so the app can directly access the API using http://localhost:4000.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+-On Android (Emulator):
+The emulator runs in a virtualized environment, and localhost points to the emulator itself — not your host machine.
+To access your computer’s local server, Android uses the special alias 10.0.2.2.
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+✅ This ensures both platforms can reach the local JSON Server instance running on your computer during development.
