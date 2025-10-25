@@ -83,6 +83,11 @@ export const createHomeStyles = (colors: ColorScheme) => {
       paddingHorizontal: 24,
       paddingBottom: 12,
     },
+    filterSection: {
+      paddingHorizontal: 24,
+      paddingBottom: 12,
+      height: 50,
+    },
     inputWrapper: {
       flexDirection: "row",
       alignItems: "flex-end",
@@ -258,7 +263,7 @@ export const createHomeStyles = (colors: ColorScheme) => {
       flexDirection: "row",
       alignItems: "center",
       gap: 10,
-      paddingTop: 28,
+      paddingTop: 20,
     },
     card: {
       alignItems: "center",

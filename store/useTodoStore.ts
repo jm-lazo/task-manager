@@ -4,8 +4,15 @@ import { persist } from "zustand/middleware";
 import { api } from "../services/api";
 import { asyncStorageWrapper } from "../utils/asyncStorageWrapper";
 
+export type StatusFilter = "all" | "completed" | "pending";
+export type PriorityFilter = "all" | "Low" | "Medium" | "High";
+
 export interface TodoStore {
   tasks: Task[];
+  statusFilter: StatusFilter;
+  priorityFilter: PriorityFilter;
+  setStatusFilter: (status: StatusFilter) => void;
+  setPriorityFilter: (priority: PriorityFilter) => void;
   fetchTasks: () => Promise<void>;
   addTask: (text: string, priority: Task["priority"]) => Promise<void>;
   toggleTask: (id: number | string) => Promise<void>;
@@ -17,6 +24,11 @@ export const useTodoStore = create<TodoStore>()(
   persist(
     (set, get) => ({
       tasks: [],
+      statusFilter: "all",
+      priorityFilter: "all",
+
+      setStatusFilter: (status) => set({ statusFilter: status }),
+      setPriorityFilter: (priority) => set({ priorityFilter: priority }),
       fetchTasks: async () => {
         try {
           const data = await api.getTasks();

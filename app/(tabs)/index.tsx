@@ -1,24 +1,25 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
 import EmptyState from "@/components/EmptyState";
+import Filters from "@/components/Filters";
 import Header from "@/components/Header";
 import TodoInput from "@/components/TodoInput";
 import useTheme from "@/hooks/useTheme";
 import { Task } from "@/types/task";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from 'expo-linear-gradient';
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Alert, FlatList, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTodoStore } from '../../store/useTodoStore';
 
 
 export default function Index() {
-    const { tasks, fetchTasks, toggleTask, updateTask, deleteTask } = useTodoStore();
-    const {toggleDarkMode, colors} = useTheme();
+    const { tasks, fetchTasks, toggleTask, updateTask, deleteTask, statusFilter, priorityFilter } = useTodoStore();
+    const {colors} = useTheme();
     const homeStyles= createHomeStyles(colors);
     const [editingId, setEditingId] = useState< string | number | null>(null);
     const [editText, setEditText] = useState("");
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);   
 
     useEffect(() => {
         fetchTasks();
@@ -90,7 +91,7 @@ export default function Index() {
           case "High":
             return ["#F44336", "#E57373"];
           default:
-            return ["#CCCCCC", "#EEEEEE"]; // fallback
+            return ["#CCCCCC", "#EEEEEE"];
         }
       }; 
 
@@ -119,7 +120,7 @@ export default function Index() {
                                 colors={
                                 isSelected
                                     ? getPriorityGradient(priority)
-                                    : colors.gradients.muted
+                                    : colors.gradients.empty
                                 }
                                 style={[
                                 homeStyles.priorityChip,
@@ -224,20 +225,34 @@ export default function Index() {
           
         );
       };
+
+      const filteredTasks = React.useMemo(() => {
+        return tasks.filter((t) => {
+          const matchPriority =
+            priorityFilter === "all" || t.priority === priorityFilter;
+      
+          const matchStatus =
+            statusFilter === "all" ||
+            (statusFilter === "completed" && t.completed) ||
+            (statusFilter === "pending" && !t.completed);
+      
+          return matchPriority && matchStatus;
+        });
+      }, [tasks, priorityFilter, statusFilter]);
+
   return (
     <LinearGradient colors={colors.gradients.background} style={homeStyles.container}>
          <StatusBar barStyle={colors.statusBarStyle}/>
          <SafeAreaView style={homeStyles.safeArea}>
             <Header />
             <TodoInput />
+            <Filters />
             <FlatList
-            data={tasks}
+            data={filteredTasks}
             renderItem={renderTodoItem}
-            // keyExtractor={(item) => item.id}
             style={homeStyles.todoList}
             contentContainerStyle={homeStyles.todoListContent}
             ListEmptyComponent={<EmptyState />}
-            // showsVerticalScrollIndicator={false}
             refreshing={refreshing}
             onRefresh={onRefresh}
             />
