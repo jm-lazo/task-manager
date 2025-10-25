@@ -8,9 +8,9 @@ export interface TodoStore {
   tasks: Task[];
   fetchTasks: () => Promise<void>;
   addTask: (text: string, priority: Task["priority"]) => Promise<void>;
-  toggleTask: (id: number) => Promise<void>;
-  updateTask: (id: number, updates: Partial<Task>) => Promise<void>;
-  deleteTask: (id: number) => Promise<void>;
+  toggleTask: (id: number | string) => Promise<void>;
+  updateTask: (id: number | string, updates: Partial<Task>) => Promise<void>;
+  deleteTask: (id: number | string) => Promise<void>;
 }
 
 export const useTodoStore = create<TodoStore>()(

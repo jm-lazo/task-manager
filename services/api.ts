@@ -24,18 +24,18 @@ export const api = {
   },
 
   updateTask: async (
-    id: number,
+    id: string | number,
     updates: Partial<{ text: string; completed: boolean; priority: string }>
   ) => {
     const res = await fetch(`${API_URL}/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updates),
     });
     return res.json();
   },
 
-  deleteTask: async (id: number) => {
+  deleteTask: async (id: string | number) => {
     await fetch(`${API_URL}/${id}`, { method: "DELETE" });
   },
 };

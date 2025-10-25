@@ -233,6 +233,38 @@ export const createHomeStyles = (colors: ColorScheme) => {
       lineHeight: 24,
       color: colors.textMuted,
     },
+    priorityChipsContainer: {
+      flexDirection: "row",
+      gap: 40,
+      zIndex: 10,
+    },
+
+    priorityChip: {
+      paddingHorizontal: 12,
+      borderRadius: 16,
+      alignItems: "center",
+      justifyContent: "center",
+      opacity: 0.85,
+      elevation: 2,
+    },
+
+    priorityChipText: {
+      fontSize: 14,
+      fontWeight: "600",
+      textTransform: "uppercase",
+    },
+
+    todoMainContent: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      paddingTop: 28,
+    },
+    card: {
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+    },
   });
 
   return styles;
